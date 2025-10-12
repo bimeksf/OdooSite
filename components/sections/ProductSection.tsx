@@ -1,12 +1,35 @@
+"use client";
+
 import React from "react";
+
 import Container from "../Container";
 import CardComponent from "../CardComponent";
-
+import { useRef } from "react";
+import { motion, useInView } from "motion/react";
 const ProductSection = () => {
+  const sectionRef = useRef(null);
+  const isSectionInView = useInView(sectionRef, { once: true, amount: 0.3 });
+
+const textVariants = {
+  hidden: { y: -20, opacity: 0 },
+  visible: { y: 0, opacity: 1 },
+};
+
+
+
+
   return (
-    <section className="pt-[8rem] pb-[4rem] bg-gray-100">
-      <Container  className=" flex flex-col">
-        <h2 className="text-[1.5rem] pb-[5.25rem]">Naše produkty</h2>
+    <section className="pt-[8rem] pb-[4rem] bg-gray-100" ref={sectionRef}>
+      <Container className=" flex flex-col">
+        <motion.h2
+          variants={textVariants}
+          initial="hidden"
+          animate={isSectionInView ? "visible" : "hidden"}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="text-[1.5rem] pb-[5.25rem]"
+        >
+          Naše produkty
+        </motion.h2>
 
         <div className="flex flex-col md:flex-row pb-[6.813rem]">
           {/* velký titulek – bez mezer a posunutý o padding Containeru */}
